@@ -1,0 +1,51 @@
+========================================
+QUICK DEPLOYMENT COMMANDS
+========================================
+
+Copy and paste these commands one by one:
+
+1. SSH into production:
+   ssh user@api.iqraamark.com
+
+2. Navigate to project:
+   cd /var/www/house-of-vaz/house-of-vaz-backend-system
+
+3. Backup database:
+   cp db.sqlite3 db.sqlite3.backup.$(date +%Y%m%d_%H%M%S)
+
+4. Activate virtual environment:
+   source venv/bin/activate
+
+5. Check pending migrations:
+   python manage.py showmigrations products
+
+6. Pull latest code (if using git):
+   git pull origin main
+
+7. Run migrations:
+   python manage.py migrate products
+
+8. Restart gunicorn:
+   sudo systemctl restart gunicorn
+
+9. Check status:
+   sudo systemctl status gunicorn
+
+10. Test API:
+    Try creating a product at:
+    POST https://api.iqraamark.com/api/v1/warehouses/{warehouse_id}/products/
+
+========================================
+ROLLBACK (if needed):
+========================================
+
+1. Find your backup:
+   ls -lh db.sqlite3.backup.*
+
+2. Restore backup:
+   cp db.sqlite3.backup.YYYYMMDD_HHMMSS db.sqlite3
+
+3. Restart:
+   sudo systemctl restart gunicorn
+
+========================================

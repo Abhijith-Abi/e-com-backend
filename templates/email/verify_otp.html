@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #2D3748;
+            background-color: #F7FAFC;
+            margin: 0;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .header {
+            background-color: #F7FAFC;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: #1A202C;
+        }
+        .content {
+            padding: 30px 30px;
+            line-height: 1.6;
+        }
+        .footer {
+            background-color: #F7FAFC;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #718096;
+            border-top: 1px solid #E2E8F0;
+        }
+        .otp-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .otp-code {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: 8px;
+            color: #2B6CB0;
+            background-color: #EBF8FF;
+            padding: 15px 30px;
+            border: 2px dashed #BEE3F8;
+            border-radius: 8px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Verify Your Email</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{ customer_name }},</p>
+            <p>Thank you for signing up with <strong>Iqraa Mark</strong>. To complete your registration and verify your email address, please use the following One-Time Password (OTP):</p>
+
+            <div class="otp-container">
+                <span class="otp-code">{{ otp_code }}</span>
+            </div>
+
+            <p>This verification code is valid for <strong>{{ expires_in|default:"10" }} minutes</strong>. For security reasons, please do not share this code with anyone.</p>
+            
+            <p>If you did not request this code, you can safely ignore this email.</p>
+            
+            <p>Best regards,<br>The Iqraa Mark Team</p>
+        </div>
+        <div class="footer">
+            <p>&copy; {% now "Y" %} Iqraa Mark. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

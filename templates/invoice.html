@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; font-size: 13px; color: #333; }
+    .header { display: flex; justify-content: space-between; margin-bottom: 30px; }
+    .logo { font-size: 24px; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th { background: #f5f5f5; padding: 8px; text-align: left; border-bottom: 2px solid #ddd; }
+    td { padding: 8px; border-bottom: 1px solid #eee; }
+    .totals { margin-top: 20px; text-align: right; }
+    .totals td { border: none; }
+    .footer { margin-top: 40px; font-size: 11px; color: #999; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">HHHHHHH</div>
+    <div>
+      <strong>Invoice</strong><br>
+      Order #{{ order.order_id }}<br>
+      Date: {{ order.created_at|date:"d M Y" }}
+    </div>
+  </div>
+
+  <div>
+    <strong>Bill To:</strong><br>
+    {{ order.customer.user.full_name }}<br>
+    {{ order.customer.user.email }}<br>
+    {% if order.shipping_address %}
+      {{ order.shipping_address.address_line1 }},
+      {{ order.shipping_address.city }},
+      {{ order.shipping_address.state }} - {{ order.shipping_address.postal_code }}<br>
+      {{ order.shipping_address.country }}
+    {% endif %}
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Product</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Qty</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.items.all %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ item.product.name_en }}</td>
+        <td>{{ item.selected_color|default:"-" }}</td>
+        {% if order.applied_gift_card or order.applied_gift_wrap %}
+        <div style="margin-top: 20px; padding: 10px; background: #f9f9f9; border-left: 3px solid #ddd;">
+          <strong>Additional Services:</strong><br>
+          {% if order.applied_gift_card %}
+            <small>Gift Card: {{ order.applied_gift_card.card_name }} - ₹{{ order.applied_gift_card.price_inr|default:"N/A" }}</small><br>
+          {% endif %}
+          {% if order.applied_gift_wrap %}
+            <small>Gift Wrap: {{ order.applied_gift_wrap.wrap_name }} - ₹{{ order.applied_gift_wrap.price_inr|default:"N/A" }}</small><br>
+          {% endif %}
+          {% if order.applied_gift_card and order.applied_gift_wrap %}
+            <small style="color: #green;"><strong>✓ Combo (10% discount applied)</strong></small><br>
+          {% endif %}
+          {% if order.gift_wrap_charges %}
+            <small><strong>Charges:</strong> {{ order.gift_wrap_charges }} {{ order.currency }}</small>
+          {% endif %}
+        </div>
+        {% endif %}
+        <td>{{ item.selected_size|default:"-" }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price }} {{ order.currency }}</td>
+        <td>{{ item.price|floatformat:2 }} {{ order.currency }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="totals">
+    <tr><td>Subtotal:</td><td>{{ order.total_amount }} {{ order.currency }}</td></tr>
+    {% if order.discount_amount %}<tr><td>Discount:</td><td>-{{ order.discount_amount }} {{ order.currency }}</td></tr>{% endif %}
+    {% if order.gst %}<tr><td>GST (18%):</td><td>{{ order.gst }} {{ order.currency }}</td></tr>{% endif %}
+    <tr><td><strong>Total:</strong></td><td><strong>{{ order.total_amount }} {{ order.currency }}</strong></td></tr>
+  </table>
+
+  <div class="footer">Thank you for shopping with IQRAAMARK!</div>
+</body>
+</html>
