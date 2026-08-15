@@ -32,7 +32,7 @@ def generate_and_send_otp(user):
     )
 
     # Pre-render email
-    subject = "Verify your email - Iqraa Mark"
+    subject = "Verify your email - Sebastian Store"
     context = {
         "customer_name": user.full_name or user.email,
         "otp_code": otp_code,

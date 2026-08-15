@@ -1,93 +1,117 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;600&display=swap');
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #2D3748;
-            background-color: #F7FAFC;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #333333;
             margin: 0;
-            padding: 20px 0;
+            padding: 40px 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
-            background-color: #FFFFFF;
-            border-radius: 8px;
+            background-color: #ffffff;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eeeeee;
         }
         .header {
-            background-color: #F7FAFC;
-            padding: 30px 20px;
+            background-color: #000000;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 1px solid #E2E8F0;
         }
-        .header h1 {
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-            color: #1A202C;
+        }
+        .logo span {
+            color: #d4af37; /* Gold accent */
+        }
+        /* Simple CSS animation for the icon */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .icon {
+            font-size: 40px;
+            margin-top: 10px;
+            display: inline-block;
+            animation: pulse 2s infinite ease-in-out;
         }
         .content {
-            padding: 30px 30px;
-            line-height: 1.6;
-        }
-        .footer {
-            background-color: #F7FAFC;
-            padding: 20px;
+            padding: 40px 30px;
             text-align: center;
-            font-size: 13px;
-            color: #718096;
-            border-top: 1px solid #E2E8F0;
+        }
+        .content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-top: 0;
+            color: #111111;
+        }
+        .content p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555555;
+            margin-bottom: 25px;
         }
         .otp-container {
-            text-align: center;
             margin: 30px 0;
         }
         .otp-code {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
-            font-size: 36px;
-            font-weight: 700;
-            letter-spacing: 8px;
-            color: #2B6CB0;
-            background-color: #EBF8FF;
-            padding: 15px 30px;
-            border: 2px dashed #BEE3F8;
+            font-family: 'Inter', monospace;
+            font-size: 38px;
+            font-weight: 600;
+            letter-spacing: 12px;
+            color: #000000;
+            background-color: #f4f4f4;
+            padding: 20px 20px 20px 32px;
             border-radius: 8px;
             display: inline-block;
+            border-bottom: 3px solid #d4af37;
+        }
+        .footer {
+            background-color: #f9f9f9;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999999;
+            border-top: 1px solid #eeeeee;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
-            <h1>Verify Your Email</h1>
+            <h1 class="logo">SEBASTIAN <span>STORE</span></h1>
+            <div class="icon">✨</div>
         </div>
         <div class="content">
+            <h2>Welcome to Elegance</h2>
             <p>Hi {{ customer_name }},</p>
-            <p>Thank you for signing up with <strong>Iqraa Mark</strong>. To complete your registration and verify your email address, please use the following One-Time Password (OTP):</p>
-
+            <p>Thank you for joining <strong>Sebastian Store</strong>. To complete your registration and secure your account, please enter the verification code below:</p>
+            
             <div class="otp-container">
                 <span class="otp-code">{{ otp_code }}</span>
             </div>
-
-            <p>This verification code is valid for <strong>{{ expires_in|default:"10" }} minutes</strong>. For security reasons, please do not share this code with anyone.</p>
             
-            <p>If you did not request this code, you can safely ignore this email.</p>
-            
-            <p>Best regards,<br>The Iqraa Mark Team</p>
+            <p style="font-size: 13px; color: #888;">This code is valid for <strong>{{ expires_in|default:"10" }} minutes</strong>. Please do not share it with anyone.</p>
         </div>
         <div class="footer">
-            <p>&copy; {% now "Y" %} Iqraa Mark. All rights reserved.</p>
+            <p>&copy; {% now "Y" %} Sebastian Store. Premium Modest Fashion.<br>All rights reserved.</p>
         </div>
     </div>
 </body>
-
 </html>
