@@ -77,7 +77,7 @@ def send_order_confirmed_email(order):
             f"{tracking_link}\n\n"
             f"If you have any questions, feel free to reply to this email.\n\n"
             f"Best regards,\n"
-            f"E-commerce Store Team"
+            f"Sebastian Store Team"
         )
 
         # Define background task
