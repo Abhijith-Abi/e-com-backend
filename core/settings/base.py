@@ -146,7 +146,7 @@ ANYMAIL = {
 RESEND_API_KEY = env("RESEND_API_KEY")
 
 EMAIL_BACKEND = "anymail.backends.resend.EmailBackend"
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@ecom.abisolutions.online")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@info.abisolutions.online")
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
