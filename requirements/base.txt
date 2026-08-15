@@ -4,6 +4,7 @@ argon2-cffi  # https://github.com/hynek/argon2_cffi
 whitenoise  # https://github.com/evansd/whitenoise
 hiredis  # https://github.com/redis/hiredis-py
 openpyxl  # https://foss.heptapod.net/openpyxl/openpyxl
+reportlab  # https://www.reportlab.com/
 
 # Django
 # ------------------------------------------------------------------------------
