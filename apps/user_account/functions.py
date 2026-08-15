@@ -42,26 +42,22 @@ def generate_and_send_otp(user):
     from_email = getattr(settings, "DEFAULT_FROM_EMAIL", "noreply@example.com")
     recipient = user.email
 
-    def send_bg():
-        try:
-            resend.api_key = settings.RESEND_API_KEY
-            if not resend.api_key:
-                logger.error(f"Failed to send verification email to {recipient} via Resend: RESEND_API_KEY is empty or not configured in your .env file.")
-                return
-            params = {
-                "from": from_email,
-                "to": [recipient],
-                "subject": subject,
-                "text": f"Your email verification OTP is {otp_code}. It is valid for 10 minutes.",
-                "html": html_message,
-            }
-            result = resend.Emails.send(params)
-            logger.info(f"OTP verification email successfully sent to {recipient} via Resend. Result: {result}")
-        except Exception as e:
-            logger.error(f"Failed to send verification email to {recipient} via Resend: {str(e)}")
-
-    thread = threading.Thread(target=send_bg)
-    thread.daemon = True
-    thread.start()
+    try:
+        resend.api_key = getattr(settings, "RESEND_API_KEY", None)
+        if not resend.api_key:
+            logger.error(f"Failed to send verification email to {recipient} via Resend: RESEND_API_KEY is empty.")
+            return otp_code
+            
+        params = {
+            "from": from_email,
+            "to": [recipient],
+            "subject": subject,
+            "text": f"Your email verification OTP is {otp_code}. It is valid for 10 minutes.",
+            "html": html_message,
+        }
+        result = resend.Emails.send(params)
+        logger.info(f"OTP verification email successfully sent to {recipient}. Result: {result}")
+    except Exception as e:
+        logger.error(f"Failed to send verification email to {recipient} via Resend: {str(e)}")
 
     return otp_code

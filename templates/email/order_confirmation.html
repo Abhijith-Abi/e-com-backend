@@ -1,86 +1,124 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;600&display=swap');
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #2D3748;
-            background-color: #F7FAFC;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #333333;
             margin: 0;
-            padding: 20px 0;
+            padding: 40px 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
-            background-color: #FFFFFF;
-            border-radius: 8px;
+            background-color: #ffffff;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eeeeee;
         }
         .header {
-            background-color: #F7FAFC;
-            padding: 30px 20px;
+            background-color: #000000;
+            padding: 40px 20px;
             text-align: center;
-            border-bottom: 1px solid #E2E8F0;
         }
-        .header h1 {
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-            color: #1A202C;
+        }
+        .logo span {
+            color: #d4af37; /* Gold accent */
+        }
+        /* Simple CSS animation for the icon */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .icon {
+            font-size: 40px;
+            margin-top: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite ease-in-out;
         }
         .content {
-            padding: 30px 30px;
+            padding: 40px 30px;
             line-height: 1.6;
+            color: #555555;
+        }
+        .content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin-top: 0;
+            color: #111111;
+            text-align: center;
+        }
+        .order-details {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #d4af37;
+        }
+        .order-details p {
+            margin: 5px 0;
+            font-size: 14px;
         }
         .footer {
-            background-color: #F7FAFC;
+            background-color: #f9f9f9;
             padding: 20px;
             text-align: center;
-            font-size: 13px;
-            color: #718096;
-            border-top: 1px solid #E2E8F0;
+            font-size: 12px;
+            color: #999999;
+            border-top: 1px solid #eeeeee;
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <div class="header">
-            <h1>Order Processed!</h1>
+            <h1 class="logo">SEBASTIAN <span>STORE</span></h1>
+            <div class="icon">📦</div>
         </div>
         <div class="content">
+            <h2>Order Processed!</h2>
             <p>Hi {{ customer_name }},</p>
-            <p>Thank you for your order. Your order has been <span
-                    style="color: #4CAF50; font-weight: bold;">Processed</span>!</p>
+            <p>Thank you for shopping with <strong>Sebastian Store</strong>. Your order has been successfully <span style="color: #4CAF50; font-weight: 600;">processed</span> and is getting ready to ship.</p>
 
-            <h3>Order Details</h3>
-            <p><strong>Order ID:</strong> {{ order_id }}</p>
-            <p><strong>Total Amount:</strong> {{ total_amount }} {{ currency }}</p>
-            <p><strong>Items:</strong> {{ items_count }}</p>
+            <div class="order-details">
+                <h3 style="margin-top: 0; color: #111; font-size: 16px;">Order Summary</h3>
+                <p><strong>Order ID:</strong> {{ order_id }}</p>
+                <p><strong>Total Amount:</strong> {{ total_amount }} {{ currency }}</p>
+                <p><strong>Items:</strong> {{ items_count }}</p>
+            </div>
 
             {% if shipping_address %}
-            <h3>Shipping Address</h3>
-            <p>
-                {{ shipping_address.full_name }}<br>
-                {{ shipping_address.address_line1 }}<br>
-                {% if shipping_address.address_line2 %}{{ shipping_address.address_line2 }}<br>{% endif %}
-                {{ shipping_address.city }}, {{ shipping_address.state }} {{ shipping_address.postal_code }}<br>
-                {{ shipping_address.country }}
-            </p>
+            <div class="order-details" style="border-left-color: #333;">
+                <h3 style="margin-top: 0; color: #111; font-size: 16px;">Shipping Address</h3>
+                <p style="margin:0;">
+                    {{ shipping_address.full_name }}<br>
+                    {{ shipping_address.address_line1 }}<br>
+                    {% if shipping_address.address_line2 %}{{ shipping_address.address_line2 }}<br>{% endif %}
+                    {{ shipping_address.city }}, {{ shipping_address.state }} {{ shipping_address.postal_code }}<br>
+                    {{ shipping_address.country }}
+                </p>
+            </div>
             {% endif %}
 
-            <p>We'll notify you when your order ships!</p>
+            <p style="text-align: center; margin-top: 30px;">We'll notify you as soon as your order ships!</p>
         </div>
         <div class="footer">
-            <p>&copy; {% now "Y" %} Iqraa Mark. All rights reserved.</p>
+            <p>&copy; {% now "Y" %} Sebastian Store. Premium Modest Fashion.<br>All rights reserved.</p>
         </div>
     </div>
 </body>
-
 </html>
