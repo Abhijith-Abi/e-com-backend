@@ -538,11 +538,21 @@ class OrderInvoiceView(APIView):
             # STYLES
             # =====================================================
 
+            logo_style = ParagraphStyle(
+                'LogoStyle',
+                parent=styles['Normal'],
+                fontSize=26,
+                textColor=colors.HexColor("#111111"),
+                fontName='DejaVuSans-Bold',
+                alignment=TA_CENTER,
+                spaceAfter=15
+            )
+
             heading_style = ParagraphStyle(
                 'HeadingStyle',
                 parent=styles['Normal'],
                 fontSize=12,
-                textColor=colors.HexColor("#0f2d46"),
+                textColor=colors.HexColor("#111111"),
                 fontName='DejaVuSans-Bold',
                 leading=16
             )
@@ -551,7 +561,7 @@ class OrderInvoiceView(APIView):
                 'NormalStyle',
                 parent=styles['Normal'],
                 fontSize=10,
-                textColor=colors.black,
+                textColor=colors.HexColor("#333333"),
                 fontName='DejaVuSans',
                 leading=15
             )
@@ -560,7 +570,7 @@ class OrderInvoiceView(APIView):
                 'BoldStyle',
                 parent=styles['Normal'],
                 fontSize=10,
-                textColor=colors.HexColor("#0f2d46"),
+                textColor=colors.HexColor("#111111"),
                 fontName='DejaVuSans-Bold',
                 leading=16
             )
@@ -570,7 +580,7 @@ class OrderInvoiceView(APIView):
                 parent=styles['Normal'],
                 fontSize=9,
                 alignment=TA_CENTER,
-                textColor=colors.HexColor("#555555"),
+                textColor=colors.HexColor("#999999"),
                 fontName='DejaVuSans'
             )
 
@@ -579,7 +589,7 @@ class OrderInvoiceView(APIView):
                 parent=styles['Normal'],
                 alignment=TA_CENTER,
                 leading=18,
-                textColor=colors.HexColor("#1a1a1a"),
+                textColor=colors.HexColor("#555555"),
                 fontName='DejaVuSans'
             )
 
@@ -587,30 +597,12 @@ class OrderInvoiceView(APIView):
             # LOGO
             # =====================================================
 
-            logo_path = os.path.join(
-                settings.BASE_DIR,
-                "templates",
-                "static",
-                "images",
-                "logo.png"
+            elements.append(
+                Paragraph(
+                    "<b>SEBASTIAN <font color='#d4af37'>STORE</font></b>",
+                    logo_style
+                )
             )
-
-            logo = Image(
-                logo_path,
-                width=8 * cm,
-                height=2 * cm
-            )
-
-            logo_table = Table(
-                [[logo]],
-                colWidths=[page_width]
-            )
-
-            logo_table.setStyle(TableStyle([
-                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-            ]))
-
-            elements.append(logo_table)
 
             elements.append(Spacer(1, 0.2 * cm))
 
@@ -647,8 +639,8 @@ class OrderInvoiceView(APIView):
                     "LINEBELOW",
                     (0, 0),
                     (-1, -1),
-                    1,
-                    colors.HexColor("#0f2d46")
+                    1.5,
+                    colors.HexColor("#d4af37")
                 )
             ]))
 
@@ -798,7 +790,7 @@ class OrderInvoiceView(APIView):
                     "BACKGROUND",
                     (0, 0),
                     (-1, 0),
-                    colors.HexColor("#062b55")
+                    colors.HexColor("#111111")
                 ),
 
                 (
@@ -967,14 +959,14 @@ class OrderInvoiceView(APIView):
                     "BACKGROUND",
                     (0, -1),
                     (-1, -1),
-                    colors.HexColor("#e8f0fb")
+                    colors.HexColor("#f9f9f9")
                 ),
 
                 (
                     "TEXTCOLOR",
                     (0, -1),
                     (-1, -1),
-                    colors.HexColor("#062b55")
+                    colors.HexColor("#111111")
                 ),
 
                 (
@@ -1051,8 +1043,8 @@ class OrderInvoiceView(APIView):
             elements.append(Spacer(1, 0.25 * cm))
 
             footer_text = """
-            Thank you for shopping with IQRAAMARK!
-            Your satisfaction is our priority.
+            Thank you for shopping with SEBASTIAN STORE!
+            Premium Modest Fashion.
             """
 
             elements.append(
